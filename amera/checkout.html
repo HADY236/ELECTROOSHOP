@@ -1,59 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>إتمام الشراء - إلكترو شوب</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-</head>
-<body class="bg-gray-100 min-h-screen">
-
-  <nav class="bg-indigo-600 text-white sticky top-0 z-50 shadow-lg">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <h1 class="text-3xl font-bold">إلكترو شوب</h1>
-      <div class="flex items-center gap-6 text-lg">
-        <a href="index.html" class="hover:text-yellow-300">الرئيسية</a>
-        <a href="cart.html" class="relative">
-          <i class="fas fa-shopping-cart text-3xl"></i>
-          <span id="cart-count" class="absolute -top-2 -left-4 bg-red-500 text-white rounded-full w-8 h-8 text-sm flex items-center justify-center">0</span>
-        </a>
-      </div>
-    </div>
-  </nav>
-
-  <div class="container mx-auto px-6 py-24">
-    <div class="max-w-2xl mx-auto bg-white rounded-3xl shadow-2xl p-12">
-      <h2 class="text-5xl font-bold text-center mb-16">إتمام الطلب</h2>
-      
-      <form class="space-y-10">
-        <input type="text" placeholder="الاسم الكامل" class="w-full p-6 rounded-xl border-2 text-2xl" required>
-        <input type="tel" placeholder="رقم التليفون" class="w-full p-6 rounded-xl border-2 text-2xl" required>
-        <input type="text" placeholder="العنوان بالتفصيل" class="w-full p-6 rounded-xl border-2 text-2xl" required>
-        <select class="w-full p-6 rounded-xl border-2 text-2xl">
-          <option>الدفع عند الاستلام</option>
-          <option>فودافون كاش</option>
-          <option>بطاقة ائتمان</option>
-        </select>
-
-        <button type="button" onclick="alert('تم إرسال الطلب بنجاح! شكرًا لتسوقك معانا 💙')" 
-          class="w-full bg-green-600 text-white py-8 rounded-xl text-3xl font-bold hover:bg-green-700">
-          تأكيد الطلب والدفع
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <footer class="bg-gray-900 text-white py-12 mt-20">
-    <div class="container mx-auto px-6 text-center">
-      <p class="text-2xl">© 2025 إلكترو شوب - جميع الحقوق محفوظة</p>
-    </div>
-  </footer>
-
-  <script>
-    document.querySelectorAll('#cart-count').forEach(el => {
-      el.innerText = JSON.parse(localStorage.getItem('cart')||'[]').reduce((s,i)=>s+i.qty,0);
-    });
-  </script>
-</body>
-</html>
