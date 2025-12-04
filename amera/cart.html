@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>سلة التسوق - إلكترو شوب</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <nav class="bg-indigo-600 text-white sticky top-0 z-50 shadow-lg">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">إلكترو شوب</h1>
+      <div class="flex items-center gap-6 text-lg">
+        <a href="index.html" class="hover:text-yellow-300">الرئيسية</a>
+        <a href="products.html" class="hover:text-yellow-300">المنتجات</a>
+        <a href="cart.html" class="relative">
+          <i class="fas fa-shopping-cart text-3xl"></i>
+          <span id="cart-count" class="absolute -top-2 -left-4 bg-red-500 text-white rounded-full w-8 h-8 text-sm flex items-center justify-center">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mx-auto px-6 py-20">
+    <h2 class="text-5xl font-bold text-center mb-16">سلة التسوق</h2>
+    <div id="cart-items" class="space-y-8"></div>
+
+    <div class="mt-12 bg-white p-10 rounded-3xl shadow-2xl text-3xl font-bold text-left">
+      الإجمالي: <span id="total" class="text-indigo-600">0</span> ج.م
+      <a href="checkout.html" class="block mt-8 bg-green-600 text-white text-center py-6 rounded-xl hover:bg-green-700 text-2xl">
+        إتمام الشراء
+      </a>
+    </div>
+  </div>
+
+  <footer class="bg-gray-900 text-white py-12 mt-20">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-2xl">© 2025 إلكترو شوب - جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <script>
+    const allProducts = [
+      {id:1, name:"آيفون 15 برو ماكس", price:58999, icon:"fa-mobile-screen-button", color:"bg-blue-600"},
+      {id:2, name:"سامسونج S24 ألترا", price:44999, icon:"fa-mobile", color:"bg-green-600"},
+      {id:3, name:"ماك بوك برو M3", price:89999, icon:"fa-laptop", color:"bg-gray-800"},
+      {id:4, name:"AirPods Pro 2", price:11999, icon:"fa-headphones", color:"bg-purple-600"},
+      {id:5, name:"شاشة OLED 65 بوصة", price:74999, icon:"fa-tv", color:"bg-red-600"},
+      {id:6, name:"آبل واتش الترا 2", price:32999, icon:"fa-watch", color:"bg-orange-600"},
+      {id:7, name:"لاب توب ديل XPS 14", price:67999, icon:"fa-laptop", color:"bg-teal-600"},
+      {id:8, name:"شاومي 14 برو", price:28999, icon:"fa-mobile-alt", color:"bg-yellow-600"}
+    ];
+
+    function renderCart() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const container = document.getElementById('cart-items');
+      let total = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = '<p class="text-center text-4xl text-gray-500 py-20">السلة فارغة</p>';
+        document.getElementById('total').innerText = '0';
+        updateCartCount();
+        return;
+      }
+
+      container.innerHTML = cart.map(item => {
+        total += item.price * item.qty;
+        return `
+          <div class="bg-white p-8 rounded-3xl shadow-xl flex items-center gap-8">
+            <div class="${item.color} text-white w-32 h-32 rounded-3xl flex items-center justify-center text-6xl">
+              <i class="fas ${item.icon}"></i>
+            </div>
+            <div class="flex-1">
+              <h3 class="text-3xl font-bold">${item.name}</h3>
+              <p class="text-2xl text-gray-600">${item.price.toLocaleString()} ج.م × ${item.qty}</p>
+            </div>
+            <button onclick="remove(${item.id})" class="text-red-600 text-5xl">✖</button>
+          </div>
+        `;
+      }).join('');
+
+      document.getElementById('total').innerText = total.toLocaleString();
+      updateCartCount();
+    }
+
+    function remove(id) {
+      let cart = JSON.parse(localStorage.getItem('cart')||'[]');
+      cart = cart.filter(x => x.id !== id);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+    }
+
+    function updateCartCount() {
+      const count = JSON.parse(localStorage.getItem('cart')||'[]').reduce((s,i)=>s+i.qty,0);
+      document.querySelectorAll('#cart-count').forEach(el => el.innerText = count);
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

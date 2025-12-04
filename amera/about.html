@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>من نحن - إلكترو شوب</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-gray-100">
+
+  <nav class="bg-indigo-600 text-white sticky top-0 z-50 shadow-lg">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold">إلكترو شوب</h1>
+      <div class="flex items-center gap-6 text-lg">
+        <a href="index.html" class="hover:text-yellow-300">الرئيسية</a>
+        <a href="products.html" class="hover:text-yellow-300">المنتجات</a>
+        <a href="about.html" class="hover:text-yellow-300">من نحن</a>
+        <a href="contact.html" class="hover:text-yellow-300">تواصل معنا</a>
+        <a href="cart.html" class="relative">
+          <i class="fas fa-shopping-cart text-3xl"></i>
+          <span id="cart-count" class="absolute -top-2 -left-4 bg-red-500 text-white rounded-full w-8 h-8 text-sm flex items-center justify-center">0</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="container mx-auto px-6 py-20 text-center">
+    <h2 class="text-6xl font-bold mb-12 text-indigo-600">من نحن</h2>
+    <div class="text-2xl leading-relaxed text-gray-700 max-w-4xl mx-auto space-y-8">
+      <p>إلكترو شوب هو أكبر متجر إلكترونيات في مصر والشرق الأوسط، بدأنا عام 2015 بهدف توفير أحدث الأجهزة بأفضل الأسعار.</p>
+      <p>لدينا أكثر من 50 فرع في مصر ونوصل لكل المحافظات خلال 24-48 ساعة فقط.</p>
+      <p>ضمان حقيقي على كل منتج + إمكانية التقسيط حتى 36 شهر بدون فوائد.</p>
+      <p>فريق خدمة عملاء يرد عليك 24/7 على الواتساب والتليفون.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mt-20">
+      <div class="bg-white p-10 rounded-3xl shadow-2xl"><i class="fas fa-truck text-8xl text-indigo-600 mb-6"></i><h3 class="text-3xl font-bold">شحن مجاني</h3></div>
+      <div class="bg-white p-10 rounded-3xl shadow-2xl"><i class="fas fa-shield-alt text-8xl text-green-600 mb-6"></i><h3 class="text-3xl font-bold">ضمان سنتين</h3></div>
+      <div class="bg-white p-10 rounded-3xl shadow-2xl"><i class="fas fa-credit-card text-8xl text-yellow-600 mb-6"></i><h3 class="text-3xl font-bold">تقسيط 36 شهر</h3></div>
+      <div class="bg-white p-10 rounded-3xl shadow-2xl"><i class="fas fa-headset text-8xl text-purple-600 mb-6"></i><h3 class="text-3xl font-bold">دعم 24/7</h3></div>
+    </div>
+  </section>
+
+  <footer class="bg-gray-900 text-white py-12 mt-20">
+    <div class="container mx-auto px-6 text-center">
+      <p class="text-2xl">© 2025 إلكترو شوب - جميع الحقوق محفوظة</p>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('#cart-count').forEach(el => {
+      el.innerText = JSON.parse(localStorage.getItem('cart')||'[]').reduce((s,i)=>s+i.qty,0);
+    });
+  </script>
+</body>
+</html>
